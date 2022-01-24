@@ -1,0 +1,45 @@
+:root {
+  --color-text: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+p {
+  display: block;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
+
+html,
+body,
+#root {
+  height: 100vh;
+}
+
+body {
+  padding-left: calc(100vw - 100%);
+}
+
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body,
+input,
+button,
+textarea {
+  font: 400 1rem 'Reem Kufi';
+  color: var(--color-text);
+}
+
+.container {
+  width: 100vw;
+}
