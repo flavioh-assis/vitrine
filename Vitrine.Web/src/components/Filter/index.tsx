@@ -1,24 +1,54 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Logo from '../../assets/images/logo.png';
+import { GenderType, /* ColorType */ } from '../../types';
 
 import './styles.css';
 
+interface IGenderFilter {
+	Id: number
+	Gender: string
+	Checked: boolean
+}
+
 const Filter = () => {
-	const [generoList, setGeneroList] = useState([
+	const [genderList, setGenderList] = useState<GenderType[]>([
 		{
-			label: 'Feminino',
-			checked: false
+			Id: 1,
+			Gender: 'Feminino'
 		},
 		{
-			label: 'Masculino',
-			checked: false
+			Id: 2,
+			Gender: 'Masculino'
 		},
 		{
-			label: 'Unissex/Neutro/Não-Binário',
-			checked: false
+			Id: 3,
+			Gender: 'Unissex'
 		}
 	]);
+	const [genderFilters, setGenderFilters] = useState<IGenderFilter[]>([]);
+
+	const createGenderFilter = () => {
+		const gFilters = genderList.map(g => {
+			// return {
+			// 	Id: g.Id,
+			// 	Gender: g.Gender,
+			// 	Checked: false
+			// } as IGenderFilter;
+			return {
+				...g,
+				Checked: false
+			} as IGenderFilter;
+		});
+		
+		console.log(gFilters);
+		
+		setGenderFilters(gFilters);
+	};
+
+	useEffect(() => {
+		createGenderFilter();
+	},[]);
 
 	return (
 		<aside className='aside-filters'>
@@ -31,17 +61,19 @@ const Filter = () => {
 						Gênero
 					</summary>
 					<div className="filter-items">
-
-						{generoList.map(g => (
-							<label className="filter-option" key={g.label}>
-								<input
-									className="option-ckeckbox"
-									type="checkbox"
-									checked={g.checked}
-								/>
-								{g.label}
-							</label>
-						))}
+						{
+							genderFilters.map(g => (
+								<label className="filter-option" key={g.Gender}>
+									<input
+										className="option-ckeckbox"
+										type="checkbox"
+										checked={g.Checked}
+										onChange={c => g.Checked = c.target.checked}
+									/>
+									{g.Gender}
+								</label>
+							))
+						}
 						
 					</div>
 
