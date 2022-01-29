@@ -1,9 +1,9 @@
-export type GenderType = {
-	Id: number,
-	Gender: string
+export type FilterType = {
+	label: string,
+	items: ItemType[]
 };
 
-export type Color = {
-	Id: number,
-	Color: string
+export type ItemType = {
+	id: number,
+	value: string
 };

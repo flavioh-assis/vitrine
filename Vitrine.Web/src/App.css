@@ -5,3 +5,6 @@
   flex-direction: column;
   height: 100vh;
 }
+.rowContainer {
+	display: flex;
+}

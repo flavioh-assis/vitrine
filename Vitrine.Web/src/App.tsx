@@ -8,7 +8,7 @@ function App() {
 	return (
 		<section className="App">
 			<Header />
-			<div className='row-container'>
+			<div className='rowContainer'>
 				<Filter />
 			</div>
 		</section>
