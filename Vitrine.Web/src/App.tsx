@@ -1,8 +1,8 @@
 import Filter from './components/Filter';
 import Header from './components/Header';
 
-import './App.css';
-import './assets/global.css';
+import './App.scss';
+import './assets/global.scss';
 
 function App() {
 	return (
