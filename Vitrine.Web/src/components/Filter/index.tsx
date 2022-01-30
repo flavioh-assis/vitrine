@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import Logo from '../../assets/images/logo.png';
 import { FilterType, ItemType } from '../../types';
+import FilterItem from './FilterItem';
 import './styles.scss';
 
 const Filter = () => {
@@ -294,7 +295,7 @@ const Filter = () => {
 			<span>Filtrar por:</span>
 			
 			<div className='filtersWrapper'>
-
+				
 				{filters.map((f) => (
 					<details key={f.label} open>
 						<summary className='filterHeader'>
@@ -302,20 +303,17 @@ const Filter = () => {
 						</summary>
 
 						{f.items.map(i => (
-							<div className="filterItems" key={i.value}>
-								<label className="filterOption">
-									<input
-										className="optionCkeckbox"
-										type="checkbox"
-										checked={CheckSelected(i, f)}
-										onChange={() => handleClickFrame(i, f)}
-									/>
-									{i.value}
-								</label>
-							</div>
+							<FilterItem
+								key={i.value}
+								item={i}
+								checked={CheckSelected(i, f)}
+								onChange={() => handleClickFrame(i, f)}
+							/>
 						))}
 					</details>
+
 				))}
+
 
 			</div>
 
