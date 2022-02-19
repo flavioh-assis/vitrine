@@ -1,6 +1,6 @@
 export type FilterType = {
 	label: string,
-	items: ItemType[]
+	items: ItemType[],
 };
 
 export type ItemType = {

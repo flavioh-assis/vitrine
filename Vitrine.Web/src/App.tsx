@@ -1,4 +1,4 @@
-import Filter from './components/Filter';
+import Filters from './components/Filters';
 import Header from './components/Header';
 
 import './App.scss';
@@ -9,7 +9,7 @@ function App() {
 		<section className="App">
 			<Header />
 			<div className='rowContainer'>
-				<Filter />
+				<Filters />
 			</div>
 		</section>
 	);

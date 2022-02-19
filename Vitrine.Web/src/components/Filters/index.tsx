@@ -3,48 +3,82 @@ import { useEffect, useState } from 'react';
 import Logo from '../../assets/images/logo.png';
 import { FilterType, ItemType } from '../../types';
 import FilterItem from './FilterItem';
-import './styles.scss';
+import {FilterHeader as FilterHeader, FiltersContainer, FiltersWrapper as FiltersList, LogoCompany} from './styled';
 
-const Filter = () => {
+const Filters = () => {
 	const [filters, setFilters] = useState<FilterType[]>([]);
-	const [selected, setSelected] = useState<FilterType[]>([]);
+	const [selectedFilters, setSelectedFilters] = useState<FilterType[]>([]);
 
-	const handleClickFrame = (item: ItemType, filter: FilterType) => {
-		const filterIndex = selected
-			.findIndex(x => x.label === filter.label);
+	const handleClickItem = (filter: FilterType, item: ItemType) => {
+		const filterIndex = findFilterIndex(filter);
 
-		if (filterIndex === -1) {
-			const newFilterSelected = {
-				label: filter.label,
-				items: [{...item}]
-			};
-			setSelected([...selected, newFilterSelected]);
-			
-			return;
-		}
+		if (!isIndexValid(filterIndex)) {
+			const filterWithNewItem = createFilterWithItem(filter, item);
 
-		const itemIndex = selected[filterIndex].items
-			.findIndex(x => x.value === item.value);
-
-		if (itemIndex === -1) {
-			const clonedStateSelected = [...selected];
-			const cloneFilter = clonedStateSelected.splice(filterIndex, 1)[0];
-			
-			const newFilter = {
-				...cloneFilter,
-				items: [
-					...cloneFilter.items,
-					item
-				]
-			};
-			setSelected([...clonedStateSelected, newFilter]);
+			setSelectedFilters([...selectedFilters, filterWithNewItem]);
 
 			return;
 		}
-		const clonedStateRemoveItem = [...selected];
-		clonedStateRemoveItem[filterIndex].items.splice(itemIndex, 1);
 
-		setSelected(clonedStateRemoveItem);
+		const itemIndex = findItemIndex(selectedFilters[filterIndex], item);
+
+		if (!isIndexValid(itemIndex)) {
+			const clonedStateSelectedFilters = [...selectedFilters];
+			addItem(clonedStateSelectedFilters[filterIndex], item);
+
+			setSelectedFilters(clonedStateSelectedFilters);
+
+			return;
+		}
+
+		const clonedStateSelectedFilters = [...selectedFilters];
+		removeItem(clonedStateSelectedFilters[filterIndex], itemIndex);
+
+		setSelectedFilters(clonedStateSelectedFilters);
+	};
+
+	const addItem = (filter: FilterType, item: ItemType) => {
+		filter.items.push(item);
+	};
+
+	const createFilterWithItem = (filter: FilterType, item: ItemType) : FilterType => {
+		const newFilter = {
+			label: filter.label,
+			items: [item]
+		};
+
+		return newFilter;
+	};
+
+	const findFilterIndex = (filter: FilterType) : number => {
+		const foundIndex = selectedFilters.findIndex(f => f.label === filter.label);
+
+		return foundIndex;
+	};
+
+	const findItemIndex = (filter: FilterType, item: ItemType) : number => {
+		const foundIndex = filter.items.findIndex(i => i.value === item.value);
+
+		return foundIndex;
+	};
+
+	const isIndexValid = (index: number) : boolean => {
+		return index !== -1;
+	};
+
+	const isItemSelected = (filter: FilterType, item: ItemType) : boolean => {
+		const filterIndex = findFilterIndex(filter);
+
+		if (!isIndexValid(filterIndex))
+			return false;
+
+		const itemIndex = findItemIndex(selectedFilters[filterIndex], item);
+
+		return (isIndexValid(itemIndex));
+	};
+
+	const removeItem = (filter: FilterType, itemIndex: number) => {
+		filter.items.splice(itemIndex, 1);
 	};
 
 	useEffect(() => {
@@ -273,51 +307,33 @@ const Filter = () => {
 		]);
 	},[]);
 
-	const CheckSelected = (item: ItemType, filter: FilterType) => {
-		const filterIndex = selected
-			.findIndex(f => f.label === filter.label);
-
-		if (filterIndex === -1)
-			return false;
-
-		const itemIndex = selected[filterIndex].items
-			.findIndex(i => i.value === item.value);
-
-		if (itemIndex === -1)
-			return false;
-			
-		return true;
-	};
-
 	return (
-		<aside className='asideFilters'>
-			<img id='logo' src={Logo} alt="Logo" />
-			<span>Filtrar por:</span>
+		<FiltersContainer>
+
+			<LogoCompany src={Logo} alt="Logo"/>
+
+			<h1>Filtrar por:</h1>
 			
-			<div className='filtersWrapper'>
-				
+			<FiltersList>
 				{filters.map((f) => (
 					<details key={f.label} open>
-						<summary className='filterHeader'>
+						<FilterHeader>
 							{f.label}
-						</summary>
+						</FilterHeader>
 
 						{f.items.map(i => (
 							<FilterItem
-								key={i.value}
+								key={`${f.label + i.value}`}
 								item={i}
-								checked={CheckSelected(i, f)}
-								onChange={() => handleClickFrame(i, f)}
+								checked={isItemSelected(f, i)}
+								onChange={() => handleClickItem(f, i)}
 							/>
 						))}
 					</details>
-
 				))}
+			</FiltersList>
 
-
-			</div>
-
-		</aside>);
+		</FiltersContainer>);
 };
 
-export default Filter;
+export default Filters;

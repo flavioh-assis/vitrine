@@ -1,23 +1,22 @@
 import React, { InputHTMLAttributes } from 'react';
 
 import { ItemType } from '../../../types';
-import './styles.scss';
+import { FilterOption, ItemContainer, Option } from './styled';
 
 interface IFilterItemProps extends InputHTMLAttributes<HTMLInputElement> {
 	item: ItemType,
 }
 
 const FilterItem: React.FC<IFilterItemProps> = ({ item, ...rest}) =>  (
-	<div className="filterItem" key={item.value}>
-		<label className="filterOption">
-			<input
-				className="optionCkeckbox"
+	<ItemContainer key={item.value}>
+		<FilterOption>
+			<Option
 				type="checkbox"
 				{...rest}
 			/>
 			{item.value}
-		</label>
-	</div>
+		</FilterOption>
+	</ItemContainer>
 );
 
 export default FilterItem;
