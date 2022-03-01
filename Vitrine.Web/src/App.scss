@@ -1,11 +1,12 @@
 .App {
-  align-self: flex-start;
   display: flex;
   flex: 1;
   flex-direction: column;
-  height: 100vh;
+  align-self: flex-start;
+  min-height: 100vh;
+	position: relative;
 }
 .rowContainer {
 	display: flex;
-	padding-bottom: 3rem;
+	margin-bottom: 5rem;
 }

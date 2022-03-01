@@ -1,4 +1,5 @@
 import Filters from './components/Filters';
+import Footer from './components/Footer';
 import Header from './components/Header';
 
 import './App.scss';
@@ -11,6 +12,7 @@ function App() {
 			<div className='rowContainer'>
 				<Filters />
 			</div>
+			<Footer />
 		</section>
 	);
 }
