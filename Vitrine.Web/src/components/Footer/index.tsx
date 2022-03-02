@@ -7,9 +7,9 @@ import {
 } from './styled';
 
 const Footer = () => {
+	const gitHubUrl = 'https://github.com/flavioh-assis?tab=repositories';
 	const instagramUrl = 'https://www.instagram.com/emiradus/';
 	const storeUrl = 'https://emiradus.mercadoshops.com.br/?preview';
-	const gitHubUrl = 'https://github.com/flavioh-assis?tab=repositories';
 
 	return (
 		<FooterContainer>
@@ -18,7 +18,7 @@ const Footer = () => {
 				<SocialMediaLink
 					href={instagramUrl}
 					target='_blank'
-					rel="noreferrer"
+					rel='noreferrer'
 					aria-label='Link para o Instagram'
 				>
 					<IconInstagram />
@@ -28,7 +28,7 @@ const Footer = () => {
 				<SocialMediaLink
 					href={storeUrl}
 					target='_blank'
-					rel="noreferrer"
+					rel='noreferrer'
 					aria-label='Link para a Loja Online'
 				>
 					<IconShop />
@@ -40,7 +40,7 @@ const Footer = () => {
 			<SocialMediaLink
 				href={gitHubUrl}
 				target='_blank'
-				rel="noreferrer"
+				rel='noreferrer'
 				aria-label='Link para o GitHub do criador do site'
 			>
 				Website criado por Flavio Assis

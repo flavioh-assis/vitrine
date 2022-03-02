@@ -7,13 +7,12 @@ const FooterContainer = styled.footer`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   background: ${colors.greenEmiradus};
 	bottom: 0;
   box-shadow: 0px -4px 10px -5px rgba(0, 0, 0, 0.75);
 	color: ${colors.white};
-	font: 100 1rem "Reem Kufi";
-	gap: 1rem;
-	padding: 1.2rem 0;
+	font: 100 0.75rem "Reem Kufi";
 	position: absolute;
 	width: 100%;
 `;
@@ -31,8 +30,11 @@ const IconShop = styled(AiOutlineShoppingCart)`
 const Navigation = styled.nav`
 	display: flex;
 	flex-direction: row;
-	gap: 1rem;
+	justify-content: center;
+	
+	border-bottom: 1px solid ${colors.white};
 	font: 400 1.2rem "Reem Kufi";
+	width: 100%;
 `;
 
 const SocialMediaLink = styled.a`
@@ -41,12 +43,12 @@ const SocialMediaLink = styled.a`
 
 	color: ${colors.white};
 	gap: 0.3rem;
+	padding: 0.5rem;
 	text-decoration: none;
 	transition: all 0.2s;
 
 	:hover {
-		color: ${colors.black};
-		/* color: ${colors.redEmiradus}; */
+		background: #006000;
 		transition: all 0.2s;
 	}
 `;
